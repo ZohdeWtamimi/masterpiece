@@ -23,6 +23,12 @@ function Header() {
         <li>
             <Link className='a' to="/dashboard">dashboard</Link>
         </li>
+        <li>
+            <Link className='a' to="/register">Register</Link>
+        </li>
+        <li>
+            <Link className='a' to="/login">Login</Link>
+        </li>
     </ul >
         <div className='me-3'>
             < BsFillPersonFill className='icon' />
@@ -46,6 +52,16 @@ function Header() {
             </span>
         </div>
         <ul className='resUl'>
+                <Link className='resLink' to="/register">
+                    <li className='resLi'>
+                            Register
+                    </li>
+                </Link>
+                <Link className='resLink' to="/login">
+                    <li className='resLi'>
+                            Login in
+                    </li>
+                </Link>
             <Link className='resLink' to="/shop">
                 <li className='resLi'>
                         shop

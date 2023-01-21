@@ -6,6 +6,7 @@ import { BsFillStarFill, BsStar } from 'react-icons/bs'
 import { FaHeart, FaShoppingCart } from 'react-icons/fa'
 import Header from '../components/Header'
 import Footer from '../components/footer/Footer'
+import { useSelector } from 'react-redux'
 
 
 

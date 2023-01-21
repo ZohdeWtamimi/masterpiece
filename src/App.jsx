@@ -9,6 +9,8 @@ import SingleProduct from './pages/SingleProduct';
 import Dashboard from './pages/Dashboard';
 import Users from './pages/dashboardPage/users/Users';
 import Products from './components/Products/Products';
+import Register from './pages/Register';
+import Login from './pages/Login';
 
 
 function App() {
@@ -20,6 +22,8 @@ function App() {
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/Shop/:id' element={<SingleProduct />} />
         <Route path='/about' element={<About />} />
+        <Route path='/register' element={<Register />} />
+        <Route path='/login' element={<Login />} />
         <Route path='/dashboard/:section' element={<Dashboard />} />
       </Routes>
     </>

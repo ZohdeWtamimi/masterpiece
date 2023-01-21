@@ -1,0 +1,27 @@
+.registerImg{
+    width: 40%;
+}
+
+.registerImg img{
+    height: calc(100vh - 55px);
+    width: 100%;
+}
+
+.registerContent{
+    background-color: #EDF1F8;
+    width: 60%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: sans-serif;
+}
+
+.formContentLogin{
+    background-color: #fff;
+    height: 45%;
+    width: 60%;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    padding: 20px;
+    border-radius: 3px;
+}
