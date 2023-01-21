@@ -1,0 +1,45 @@
+.sidebar{
+    background-color: #36454F;
+    color: #fff;
+    height: 100vh;
+    transition: all 1s;
+}
+.title{
+    padding: 10px;
+    /* text-align: center; */
+    font-size: 1.5rem;
+    transition: all 2s;
+}
+hr{
+    margin: 0;
+}
+.link{
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    gap: 15px;
+    padding: 15px 20px;
+    text-align: center;
+    /* background-color: aqua; */
+    text-decoration: none;
+    color: #fff;
+    border-top: 1px #fff solid;
+}
+.title_head{
+    transition: all .5s;
+}
+.text_name{
+    font-size: 1.2rem;
+    transition: all .5s;
+}
+
+.link:hover{
+    background-color: #212121;
+    color: #fff;
+}
+
+@media(max-width: 800px){
+    /* .sidebar{
+        display: none;
+    } */
+}
