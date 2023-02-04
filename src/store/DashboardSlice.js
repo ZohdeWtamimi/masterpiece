@@ -1,33 +1,18 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
+
+
 export const fetchItems = createAsyncThunk(
   'dashboard/fetchItems',
   async (section, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
-    console.log(section)
+    // console.log(section)
     try {
-      const res = await fetch(`http://localhost:3005/${section}`);
-      const data = await res.json();
-      return data;
-    } catch (error) {
-      return rejectWithValue(error.message);
-    }
-  }
-);
-
-export const insertItem = createAsyncThunk(
-  'dashboard/insertItem',
-  async (itemData, thunkAPI) => {
-    const { rejectWithValue, getState } = thunkAPI;
-    // itemData.auther = getState().auth.name;
-    const { section, newItem } = itemData;
-    console.log(itemData)
-    try {
-      const res = await fetch(`http://localhost:3005/${section}`, {
-        method: 'POST',
-        body: JSON.stringify(newItem),
+      const res = await fetch(`http://127.0.0.1:8000/api/${section}`, {
+        method: 'GET',
         headers: {
             // 'Accept': 'multipart/form-data',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
             'Content-Type': 'application/json; charset=UTF-8',
           },
       });
@@ -39,15 +24,44 @@ export const insertItem = createAsyncThunk(
   }
 );
 
+
+export const insertItem = createAsyncThunk(
+  'dashboard/insertItem',
+  async (itemData, thunkAPI) => {
+    const { rejectWithValue, getState } = thunkAPI;
+    // itemData.auther = getState().auth.name;
+    const { section, formData } = itemData;
+    console.log(formData.get('image'))
+    try {
+      const res = await fetch(`http://127.0.0.1:8000/api/${section}`, {
+        method: 'POST',
+        body: formData,
+        headers: {
+            // 'Accept': 'multipart/form-data',
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+            // 'Content-Type': 'application/json; charset=UTF-8',
+          },
+      });
+      const data = await res.json();
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  }
+);
+
+
 export const deleteItem = createAsyncThunk(
   'dashboard/deleteItem',
   async (itemData, thunkAPI) => {
     const { rejectWithValue } = thunkAPI;
     const { section, newItem } = itemData;
+    console.log(newItem)
     try {
-      await fetch(`http://localhost:3005/${section}/${newItem.id}`, {
+      await fetch(`http://127.0.0.1:8000/api/${section}/${newItem.id}`, {
         method: 'DELETE',
         headers: {
+          'Authorization': 'Bearer ' + localStorage.getItem('token'),
           'Content-type': 'application/json; charset=UTF-8',
         },
       });
@@ -58,6 +72,9 @@ export const deleteItem = createAsyncThunk(
     }
   }
 );
+
+
+
 
 const DashboardSlice = createSlice({
   name: 'dashboard',
@@ -84,7 +101,7 @@ const DashboardSlice = createSlice({
       state.error = null;
     })
     .addCase(insertItem.fulfilled, (state, action) => {
-      state.dashboards.push(action.payload);
+      state.dashboards.data.unshift(action.payload);
       state.loading = false;
     })
     .addCase(insertItem.rejected, (state, action) => {
@@ -98,7 +115,7 @@ const DashboardSlice = createSlice({
       state.error = null;
     })
     .addCase(deleteItem.fulfilled, (state, action) => {
-      state.dashboards = state.dashboards.filter((el) => el.id !== action.payload.id);
+      state.dashboards.data = state.dashboards.data.filter((el) => el.id !== action.payload.id);
       state.loading = false;
     })
     .addCase(deleteItem.rejected , (state, action) => {
@@ -109,3 +126,68 @@ const DashboardSlice = createSlice({
 });
 
 export default DashboardSlice.reducer;
+
+
+
+
+
+
+
+// export const fetchItems = createAsyncThunk(
+//   'dashboard/fetchItems',
+//   async (section, thunkAPI) => {
+//     const { rejectWithValue } = thunkAPI;
+//     console.log(section)
+//     try {
+//       const res = await fetch(`http://localhost:3005/${section}`);
+//       const data = await res.json();
+//       return data;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+// export const insertItem = createAsyncThunk(
+//   'dashboard/insertItem',
+//   async (itemData, thunkAPI) => {
+//     const { rejectWithValue, getState } = thunkAPI;
+//     // itemData.auther = getState().auth.name;
+//     const { section, newItem } = itemData;
+//     console.log(itemData)
+//     try {
+//       const res = await fetch(`http://localhost:3005/${section}`, {
+//         method: 'POST',
+//         body: JSON.stringify(newItem),
+//         headers: {
+//             // 'Accept': 'multipart/form-data',
+//             'Content-Type': 'application/json; charset=UTF-8',
+//           },
+//       });
+//       const data = await res.json();
+//       return data;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
+
+// export const deleteItem = createAsyncThunk(
+//   'dashboard/deleteItem',
+//   async (itemData, thunkAPI) => {
+//     const { rejectWithValue } = thunkAPI;
+//     const { section, newItem } = itemData;
+//     try {
+//       await fetch(`http://localhost:3005/${section}/${newItem.id}`, {
+//         method: 'DELETE',
+//         headers: {
+//           'Content-type': 'application/json; charset=UTF-8',
+//         },
+//       });
+//       //const data = await res.json();
+//       return newItem;
+//     } catch (error) {
+//       return rejectWithValue(error.message);
+//     }
+//   }
+// );
