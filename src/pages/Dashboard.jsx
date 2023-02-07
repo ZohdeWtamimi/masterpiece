@@ -9,6 +9,9 @@ import Products from './dashboardPage/productsDash/Products'
 import Users from './dashboardPage/users/Users'
 
 function Dashboard() {
+  // if(localStorage.getItem('token')){
+  //   console.log('hello')
+  // }
     const [isOpen, setIsOpen] = useState(true)
     // const [showForm, setShowForm] = useState(false) 
     const {section} = useParams()

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, FormSelect } from 'react-bootstrap'
 import { FaUserPlus } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import { deleteItem, fetchItems, insertItem } from '../../../store/DashboardSlice';
 import './users.css'
 
@@ -14,9 +14,9 @@ function Users() {
     email: '',
     password: '',
     image: '',
-    // mobile: '',
+    mobile: '',
     // address: '',
-    // role: 'user',
+    role: 'user',
   })
   const dispatch = useDispatch()
   const {section} = useParams()
@@ -27,7 +27,7 @@ function Users() {
   useEffect(() => {
     dispatch(fetchItems(section));
   }, [dispatch,section]);
-  console.log(dashboards, loading)
+  // console.log(dashboards, loading)
 
   const handleInput = (e)=>{
     
@@ -64,10 +64,14 @@ function Users() {
     formData.append('name', newItem.name)
     formData.append('email', newItem.email)
     formData.append('password', newItem.password)
+    formData.append('mobile', newItem.mobile)
+    formData.append('role', newItem.role)
     console.log(formData.get('image'))
     console.log(formData.get('name'))
     console.log(formData.get('email'))
     console.log(formData.get('password'))
+    console.log(formData.get('mobile'))
+    console.log(formData.get('role'))
     // let hello = formData
     // console.log(hello.get('name'))
     // setNewItem({...newItem, image:imagedata})
@@ -117,7 +121,8 @@ function Users() {
         <td>{e.email}</td>
         <td>{e.created_at}</td>
         <td>
-          <button className='btn btn-dark'>edit</button> 
+          <Link className='btn btn-dark' to={'/dashboard/users/'+e.id}>edit</Link>
+          {/* <button >edit</button>  */}
           &nbsp;
           <button onClick={ev => onDelete(e)}  className='btn btn-danger'>delete</button>
         </td>
@@ -164,10 +169,10 @@ function Users() {
       </div>
       <div className="row">
         <div className="col">
-          {/* <Form.Group className="mb-3" >
+          <Form.Group className="mb-3" >
             <Form.Label>mobile</Form.Label>
             <Form.Control onChange={(e)=> handleInput(e)} id="mobile" value={newItem.mobile} type="text" placeholder="ex: 0096787066999" />
-          </Form.Group> */}
+          </Form.Group>
         </div>
         <div className="col">
           {/* <Form.Group className="mb-3" >
@@ -177,14 +182,14 @@ function Users() {
           </Form.Group> */}
         </div>
         <div className="col">
-          {/* <Form.Group className="mb-3" >
+          <Form.Group className="mb-3" >
             <Form.Label>Role</Form.Label>
             <FormSelect onChange={(e)=> handleInput(e)} id="role"  defaultValue={newItem.role && 'user'} >
               
               <option  >user</option>
               <option >admin</option>
             </FormSelect>
-          </Form.Group> */}
+          </Form.Group>
         </div>
         <div className="col">
           <Form.Group className="mb-3" >

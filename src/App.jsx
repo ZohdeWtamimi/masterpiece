@@ -11,6 +11,7 @@ import Users from './pages/dashboardPage/users/Users';
 import Products from './components/Products/Products';
 import Register from './pages/Register';
 import Login from './pages/Login';
+import EditUser from './pages/dashboardPage/users/EditUser';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
         <Route path='/register' element={<Register />} />
         <Route path='/login' element={<Login />} />
         <Route path='/dashboard/:section' element={<Dashboard />} />
+        <Route path='/dashboard/users/:id' element={<EditUser />} />
       </Routes>
     </>
   );

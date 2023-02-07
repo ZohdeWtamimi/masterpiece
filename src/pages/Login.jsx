@@ -38,16 +38,16 @@ function Login() {
                 console.log(response)
             } );
     }
-    useEffect(() => {
-        const access_token = localStorage.getItem('token')
-        // console.log(token)
-        axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}` 
-        // const headers = { Authorization: `Bearer ${token}` };
-        axios.get(`http://127.0.0.1:8000/api/user`)
-            .then(response => console.log(response.data) );
-            // localStorage.removeItem('token')
+    // useEffect(() => {
+    //     const access_token = localStorage.getItem('token')
+    //     // console.log(token)
+    //     axios.defaults.headers.common['Authorization'] = `Bearer ${access_token}` 
+    //     // const headers = { Authorization: `Bearer ${token}` };
+    //     axios.get(`http://127.0.0.1:8000/api/user`)
+    //         .then(response => console.log(response.data) );
+    //         // localStorage.removeItem('token')
     
-    }, []);
+    // }, []);
    
   return (
     <>

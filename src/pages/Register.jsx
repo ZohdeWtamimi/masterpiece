@@ -1,3 +1,4 @@
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
@@ -9,7 +10,7 @@ function Register() {
         name: '',
         email: '',
         password: '',
-        // mobile: '',
+        mobile: '',
         // address: '',
         // role: 'user',
       })
@@ -22,16 +23,22 @@ function Register() {
     const dispatch = useDispatch()
     const handleApi = (e)=>{
     e.preventDefault();
-    const send = {
-        section: "signup",
-        newItem
-    }
-    console.log(send)
-    dispatch( insertItem(send) ).unwrap()
-    .then((res) => {
-        localStorage.setItem('token', res.token)
-        console.log(res.token);
-    });
+    // const send = {
+    //     section: "signup",
+    //     newItem
+    // }
+    // console.log(send)
+    // dispatch( insertItem(send) ).unwrap()
+    // .then((res) => {
+    //     localStorage.setItem('token', res.token)
+    //     console.log(res.token);
+    // });
+    console.log(newItem)
+    axios.post(`http://127.0.0.1:8000/api/signup`, newItem)
+    .then(response =>{
+        localStorage.setItem('token', response.data.token)
+        console.log(response)
+    } );
     }
     
   return (
@@ -54,6 +61,13 @@ function Register() {
             <Form.Group className="mb-3" >
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control type="email" onChange={(e)=> handleInput(e)} id="email" value={newItem.email} placeholder="ex: Zohde@gamil.com" />
+                <Form.Text className="text-muted"  style={{fontSize: ".8rem"}}>
+                We'll never share your email with anyone else.
+                </Form.Text>
+            </Form.Group>
+            <Form.Group className="mb-3" >
+                <Form.Label>mobile</Form.Label>
+                <Form.Control type="text" onChange={(e)=> handleInput(e)} id="mobile" value={newItem.mobile} placeholder="ex: 0787066986" />
                 <Form.Text className="text-muted"  style={{fontSize: ".8rem"}}>
                 We'll never share your email with anyone else.
                 </Form.Text>
