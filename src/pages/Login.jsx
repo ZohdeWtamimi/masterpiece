@@ -3,10 +3,12 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Button, Form } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 import Header from '../components/Header'
 import { insertItem } from '../store/DashboardSlice'
 import './login.css'
 function Login() {
+  const navigate = useNavigate()
     const [newItem, setNewItem] = useState({
         email: '',
         password: '',
@@ -35,6 +37,13 @@ function Login() {
         axios.post(`http://127.0.0.1:8000/api/login`, newItem)
             .then(response =>{
                 localStorage.setItem('token', response.data.token)
+                localStorage.setItem('user', JSON.stringify(response.data.user))
+                if(response.data.user.role == 'admin'){
+                  navigate("/dashboard");
+                }else{
+                  // console.log(response.data.user.role)
+                  navigate("/");
+                }
                 console.log(response)
             } );
     }

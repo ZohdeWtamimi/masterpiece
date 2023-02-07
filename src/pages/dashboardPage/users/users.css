@@ -17,3 +17,40 @@
     top: 20%;
     /* z-index: 99; */
 }
+/* pagination */
+.paginate{
+/* background-color: #fff; */
+display: flex;
+justify-content: space-between;
+padding-top: 10px;
+padding-bottom: 10px;
+margin-top: 10px;
+margin-bottom: 10px;
+box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+}
+.paginate .paginateNum .paginateBtn{
+    background-color: #36454F;
+    color: #fff;
+    font-size: 1rem;
+    border: none;
+    margin-left: 10px;
+    padding: 5px;
+    padding-inline: 10px;
+    min-width: 40px;
+    border-radius: 4px;
+}
+.paginate .paginateNum .paginateBtn:hover{
+    transform: scale(98%);
+}
+.activePaginate{
+    color: #36454F !important;
+    background-color: #fff !important;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.paginateInfo{
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-right: 20px;
+    color: #798087;
+}
+/* END PAGINATION */

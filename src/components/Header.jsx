@@ -2,13 +2,13 @@ import React, { useState } from 'react'
 import './Header.css'
 import { BsFillPersonFill } from "react-icons/bs";
 import { FaBars, FaShoppingCart } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
 function Header() {
     const [openNav, setOpenNav] = useState(false)
-
+    const navigate = useNavigate()
     function logout (){
          const access_token = localStorage.getItem('token')
         // console.log(token)
@@ -17,6 +17,8 @@ function Header() {
         axios.post(`http://127.0.0.1:8000/api/logout`)
             .then(response => console.log(response) );
             localStorage.removeItem('token')
+            localStorage.removeItem('user')
+            navigate('/login')
     }
   return (
     <>

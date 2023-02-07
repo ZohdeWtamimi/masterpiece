@@ -1,6 +1,6 @@
-import React, {  useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import { FaHome } from 'react-icons/fa'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import Sidebar from '../components/sidebar/Sidebar'
 import SubNav from '../components/subnav/SubNav'
 import './dashboard.css'
@@ -9,9 +9,12 @@ import Products from './dashboardPage/productsDash/Products'
 import Users from './dashboardPage/users/Users'
 
 function Dashboard() {
-  // if(localStorage.getItem('token')){
-  //   console.log('hello')
-  // }
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(JSON.parse(localStorage.getItem('user'))?.role != 'admin'){
+      navigate('/')
+    }
+  },[])
     const [isOpen, setIsOpen] = useState(true)
     // const [showForm, setShowForm] = useState(false) 
     const {section} = useParams()

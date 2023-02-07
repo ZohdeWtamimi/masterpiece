@@ -8,7 +8,6 @@ import './users.css'
 
 function Users() {
   const [showForm, setShowForm] = useState(false) 
-  const [imagedata, setImagedata] = useState('')
   const [newItem, setNewItem] = useState({
     name: '',
     email: '',
@@ -19,19 +18,19 @@ function Users() {
     role: 'user',
   })
   const dispatch = useDispatch()
-  const {section} = useParams()
+  let {section} = useParams()
   // users
-  const {dashboards, loading} = useSelector((state) => state.dashboard)
- 
+  const {dashboards} = useSelector((state) => state.dashboard)
+ console.log(dashboards)
+//  console.log(dashboards.meta.links)
   // fetch users
   useEffect(() => {
     dispatch(fetchItems(section));
   }, [dispatch,section]);
   // console.log(dashboards, loading)
 
+  // section = 'users?page=4'
   const handleInput = (e)=>{
-    
-    
     const newData = { ...newItem }
     newData[e.target.id] = e.target.value
     setNewItem(newData)
@@ -49,12 +48,33 @@ function Users() {
   const onDelete = (e)=>{
     if(!window.confirm('Are you sure you want to delete this user?')){
       return   
-      {/* <button onClick={()=> dispatch( deleteItem({section, newItem:{id:11} }) ) }>send</button> */}
     }
     dispatch( deleteItem({section, newItem:{id:e.id} }) )
-    // window.location.reload();
     dispatch(fetchItems(section));
   }
+  const handlePaginate = (e)=>{
+    if(e.active) return;
+    // console.log(e)
+    if(e.label.length === 1){
+      let indexStart = e.url.indexOf('?');
+      let addtion = e.url.slice(indexStart)
+      section = `users${addtion}`;
+    }
+    if(e.label ==='&laquo; Previous'){
+      // let cu
+      if(dashboards.meta.current_page === 1) return;
+      let prevPage = dashboards.meta.current_page - 1
+      section = `users?page=${prevPage}`;
+    }
+    if(e.label ==="Next &raquo;"){
+      // let cu
+      if(dashboards.meta.current_page === dashboards.meta.last_page) return;
+      let nextPage = dashboards.meta.current_page + 1
+      section = `users?page=${nextPage}`;
+    }
+    dispatch(fetchItems(section));
+  }
+ 
   ////////// START - CREATE USER -
   // send data to api
   const handleApi = (e)=>{
@@ -90,6 +110,7 @@ function Users() {
     dispatch(fetchItems(section));
   }
   //////// END - CREATE USER -
+  // console.log("hello" + null)
   return (
     <>
     <div className='over'>
@@ -97,8 +118,15 @@ function Users() {
        <h2 style={{color: "#fff", fontSize: "1.3rem",  fontWeight: "bold" }}>User List</h2>  
         <button onClick={()=> setShowForm(!showForm)} className='addBtn' style={{border: "1px solid #EDF1F8"}}><FaUserPlus /> Add User</button>
     </div>
-     
     <div className="container p-4  shadow pt-2 disappear" style={{transform: showForm ? "translateX(1500px)": 'translateX(0px)', transition: "all .5s"}}>
+     <div className='paginate'>
+        <div className='paginateNum'>
+        {dashboards?.meta?.links && dashboards.meta.links.map(e =>(
+          <button className={e.active ? 'activePaginate paginateBtn' : 'paginateBtn'} onClick={()=> handlePaginate(e)} key={e.label} >{e.label === '&laquo; Previous' ? "prev" : e.label === "Next &raquo;" ? "next" : e.label}</button>
+          ))}
+        </div>
+        <div className='paginateInfo'>showing form {dashboards.meta?.from} to {dashboards.meta?.to} of {dashboards.meta?.total}</div>
+     </div>
       {/* user table */}
       <table className="table">
           <thead>
@@ -112,9 +140,9 @@ function Users() {
             </tr>
           </thead>
     <tbody>
-    {dashboards.data && dashboards.data.map(e =>(
+    {dashboards.data && dashboards.data.map((e, i) =>(
         <tr key={e.id}>
-        <th scope="row">{e.id}</th>
+        <th scope="row">{dashboards.meta.from + i}</th>
         {/* http://127.0.0.1:8000/images/register.jpeg */}
         {e.url ? <td><img style={{width:"50px"}} src={`http://127.0.0.1:8000/images/${e.url}`} alt="" /></td> : <td>there's no image</td> } 
         <td>{e.name}</td>
