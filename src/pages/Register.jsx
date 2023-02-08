@@ -6,6 +6,7 @@ import Header from '../components/Header'
 import { insertItem } from '../store/DashboardSlice'
 import './register.css'
 function Register() {
+    const [error, setError] = useState('')
     const [newItem, setNewItem] = useState({
         name: '',
         email: '',
@@ -38,7 +39,10 @@ function Register() {
     .then(response =>{
         localStorage.setItem('token', response.data.token)
         console.log(response)
-    } );
+    } ).catch(error =>{
+        setError(error.response.data.message)
+        console.log(error)
+    });
     }
     
   return (
@@ -61,21 +65,24 @@ function Register() {
             <Form.Group className="mb-3" >
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control type="email" onChange={(e)=> handleInput(e)} id="email" value={newItem.email} placeholder="ex: Zohde@gamil.com" />
-                <Form.Text className="text-muted"  style={{fontSize: ".8rem"}}>
+                {/* <Form.Text className="text-muted"  style={{fontSize: ".8rem"}}>
                 We'll never share your email with anyone else.
-                </Form.Text>
+                </Form.Text> */}
             </Form.Group>
             <Form.Group className="mb-3" >
                 <Form.Label>mobile</Form.Label>
                 <Form.Control type="text" onChange={(e)=> handleInput(e)} id="mobile" value={newItem.mobile} placeholder="ex: 0787066986" />
-                <Form.Text className="text-muted"  style={{fontSize: ".8rem"}}>
+                {/* <Form.Text className="text-muted"  style={{fontSize: ".8rem"}}>
                 We'll never share your email with anyone else.
-                </Form.Text>
+                </Form.Text> */}
             </Form.Group>
             <Form.Group className="mb-3" >
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" onChange={(e)=> handleInput(e)} id="password" value={newItem.password} placeholder="Password" />
             </Form.Group>
+            <Form.Text className="text-danger d-block mb-4" style={{fontSize: ".8rem"}}>
+                {error}
+                </Form.Text>
             <Button variant="dark" type="submit">
                 Submit
             </Button>

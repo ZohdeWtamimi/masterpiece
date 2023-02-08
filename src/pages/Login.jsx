@@ -9,6 +9,7 @@ import { insertItem } from '../store/DashboardSlice'
 import './login.css'
 function Login() {
   const navigate = useNavigate()
+  const [error, setError] = useState('')
     const [newItem, setNewItem] = useState({
         email: '',
         password: '',
@@ -45,7 +46,10 @@ function Login() {
                   navigate("/");
                 }
                 console.log(response)
-            } );
+            } ).catch(error =>{
+              setError(error.response.data.message)
+              console.log(error.response.data)
+            });
     }
     // useEffect(() => {
     //     const access_token = localStorage.getItem('token')
@@ -73,17 +77,19 @@ function Login() {
             <Form.Group className="mb-3" >
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control type="email"  onChange={(e)=> handleInput(e)} id="email" value={newItem.email} placeholder="ex: Zohde@gamil.com" />
-                <Form.Text className="text-muted" style={{fontSize: ".8rem"}}>
-                We'll never share your email with anyone else.
-                </Form.Text>
+                
             </Form.Group>
             <Form.Group className="mb-3" >
                 <Form.Label>Password</Form.Label>
                 <Form.Control type="password" onChange={(e)=> handleInput(e)} id="password" value={newItem.password} placeholder="Password" />
             </Form.Group>
+            <Form.Text className="text-danger d-block mb-4" style={{fontSize: ".8rem"}}>
+                {error}
+                </Form.Text>
             <Button variant="dark" type="submit">
                 Submit
             </Button>
+
             </Form>
             </div>
         </div>

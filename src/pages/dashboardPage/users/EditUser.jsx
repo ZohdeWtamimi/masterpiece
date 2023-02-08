@@ -8,6 +8,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 
 function EditUser() {
     const {id} = useParams()
+    const [error, setError] = useState('')
     const navigate = useNavigate()
     const [newItem, setNewItem] = useState({
         name: '',
@@ -27,7 +28,7 @@ function EditUser() {
             setNewItem(response.data.data)
             console.log(response.data.data)
          });
-    }, []);
+    }, [id]);
 
     const handleInput = (e)=>{
         const newData = { ...newItem }
@@ -61,7 +62,10 @@ function EditUser() {
             .then(response =>{
                 navigate("/dashboard/users");
                 console.log(response)
-            } ).catch(e => console.log(e));
+            } ).catch(error =>{
+              setError(error.response.data.message)
+              console.log(error)
+          });
       }
     
   return (
@@ -131,6 +135,9 @@ function EditUser() {
             <Form.Control onChange={handleImage} type="file" name='image' id='image' />
           </Form.Group>
         </div>
+        <Form.Text className="text-danger d-block mb-4" style={{fontSize: ".8rem"}}>
+                {error}
+        </Form.Text>
       </div>
       <Button variant="primary" type="submit">
         Submit

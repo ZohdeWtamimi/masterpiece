@@ -5,6 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom'
 import { deleteItem, fetchItems, insertItem } from '../../../store/DashboardSlice';
 import './users.css'
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Users() {
   const [showForm, setShowForm] = useState(false) 
@@ -21,7 +23,7 @@ function Users() {
   let {section} = useParams()
   // users
   const {dashboards} = useSelector((state) => state.dashboard)
- console.log(dashboards)
+//  console.log(dashboards)
 //  console.log(dashboards.meta.links)
   // fetch users
   useEffect(() => {
@@ -49,7 +51,18 @@ function Users() {
     if(!window.confirm('Are you sure you want to delete this user?')){
       return   
     }
-    dispatch( deleteItem({section, newItem:{id:e.id} }) )
+    dispatch( deleteItem({section, newItem:{id:e.id} })).unwrap().then(e =>{
+      toast.error('User Deleted Successfully', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    })
     dispatch(fetchItems(section));
   }
   const handlePaginate = (e)=>{
@@ -103,9 +116,19 @@ function Users() {
     console.log(send)
     dispatch( insertItem(send) ).unwrap()
     .then((res) => {
+      toast.success('User Created Successfully', {
+        position: "top-right",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
       console.log(res);
-    }).catch(e =>{
-      console.log(e)
+    }).catch(error =>{
+      console.log(error)
     });
     dispatch(fetchItems(section));
   }
@@ -113,6 +136,18 @@ function Users() {
   // console.log("hello" + null)
   return (
     <>
+    <ToastContainer
+position="top-right"
+autoClose={2000}
+hideProgressBar={false}
+newestOnTop={false}
+closeOnClick
+rtl={false}
+pauseOnFocusLoss
+draggable
+pauseOnHover
+theme="light"
+/>
     <div className='over'>
     <div className='p-2 d-flex justify-content-between align-items-center' style={{backgroundColor:"#36454F"}}>
        <h2 style={{color: "#fff", fontSize: "1.3rem",  fontWeight: "bold" }}>User List</h2>  
