@@ -4,9 +4,11 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { FaBars, FaShoppingCart } from 'react-icons/fa';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 
 
 function Header() {
+    const {amount} = useSelector((state)=> state.cart)
     const [openNav, setOpenNav] = useState(false)
     const navigate = useNavigate()
     function logout (){
@@ -42,14 +44,17 @@ function Header() {
         <li>
             <Link className='a' to="/login">Login</Link>
         </li>
+        <li>
+            <Link className='a' to="/cart">cart</Link>
+        </li>
     </ul >
         <div className='me-3'>
             <button onClick={logout} style={{marginRight:'40px',padding:"5px"}}>logout</button>
             < BsFillPersonFill className='icon' />
         <span className='m-4'>|</span>
             <span className='rel'>
-            <FaShoppingCart className='cart' />
-            <span className='cout-item'>0</span>
+            <FaShoppingCart className='cart' style={{background: "transparent"}} />
+            <span className='cout-item'>{amount}</span>
             </span>
         </div>
         <div onClick={()=> setOpenNav(!openNav)} className="openNav">

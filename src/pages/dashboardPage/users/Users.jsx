@@ -23,7 +23,7 @@ function Users() {
   let {section} = useParams()
   // users
   const {dashboards} = useSelector((state) => state.dashboard)
-//  console.log(dashboards)
+ console.log(dashboards)
 //  console.log(dashboards.meta.links)
   // fetch users
   useEffect(() => {
@@ -156,7 +156,7 @@ theme="light"
     <div className="container p-4  shadow pt-2 disappear" style={{transform: showForm ? "translateX(1500px)": 'translateX(0px)', transition: "all .5s"}}>
      <div className='paginate'>
         <div className='paginateNum'>
-        {dashboards?.meta?.links && dashboards.meta.links.map(e =>(
+        {dashboards?.meta?.links && dashboards.meta.links?.map(e =>(
           <button className={e.active ? 'activePaginate paginateBtn' : 'paginateBtn'} onClick={()=> handlePaginate(e)} key={e.label} >{e.label === '&laquo; Previous' ? "prev" : e.label === "Next &raquo;" ? "next" : e.label}</button>
           ))}
         </div>
@@ -175,7 +175,7 @@ theme="light"
             </tr>
           </thead>
     <tbody>
-    {dashboards.data && dashboards.data.map((e, i) =>(
+    {Array.isArray(dashboards.data) && dashboards?.data?.map((e, i) =>(
         <tr key={e.id}>
         <th scope="row">{dashboards.meta.from + i}</th>
         {/* http://127.0.0.1:8000/images/register.jpeg */}
