@@ -8,6 +8,7 @@ import Header from '../components/Header'
 import Footer from '../components/footer/Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchItems } from '../store/DashboardSlice'
+import { fetchProducts } from '../store/ProductSlice'
 
 
 
@@ -19,8 +20,10 @@ function SingleProduct() {
     const [confirm, setConfirm] = useState(false)
     const [body, setBody] = useState('')
     // const [product, setProduct] = useState([])
-    const {dashboards, loading} = useSelector((state) => state.dashboard)
-    console.log(dashboards)
+    const {dashboards} = useSelector((state) => state.dashboard)
+    // console.log(dashboards)
+    const {products, loading} = useSelector((state) => state.product)
+    console.log(products)
     // console.log(dashboards.data)
     useEffect(() => {
       // const access_token = localStorage.getItem('token')
@@ -31,8 +34,8 @@ function SingleProduct() {
       //         console.log(response.data.data)
       //      });
       // just comment
-      dispatch(fetchItems(`products/${id}`));
-      }, [id]);
+      dispatch(fetchProducts(`/${id}`));
+      }, [id, dispatch]);
     // useEffect(() => {
       
     //   dispatch(fetchItems(`products/${id}`));
@@ -46,19 +49,19 @@ function SingleProduct() {
       e.preventDefault()
       let data = {
         body:body,
-        user_id: JSON.parse(localStorage.getItem('user')).id,
+        user_id: JSON.parse(localStorage.getItem('user')).id || 0,
         product_id: +id
       }
       console.log(data)
       axios.post(`http://127.0.0.1:8000/api/comments`, data)
             .then(response =>{
                 console.log(response)
+                dispatch(fetchProducts(`/${id}`));
+                setBody('')
             } ).catch(error =>{
               console.log(error)
           });
-          setBody('')
           // just comment
-      dispatch(fetchItems(`products/${id}`));
     }
     const handleCommnetChange = (e)=>{
       setBody(e.target.value)
@@ -90,10 +93,10 @@ function SingleProduct() {
         </div>
         <div className="row">
         <div className="col-lg-6 col-sm-12">
-           {dashboards.data && <img className='mainPic' src={`http://127.0.0.1:8000/images/${dashboards.data.url}`} height={'200'} alt="" />} 
+           {products.data && <img className='mainPic' src={`http://127.0.0.1:8000/images/${products.data.url}`} height={'200'} alt="" />} 
         </div>
         <div className="col-lg-6 col-sm-12 d-flex flex-column justify-content-around">
-            <h2> { dashboards.data?.productName}</h2>
+            <h2> { products.data?.productName}</h2>
             <div>
               {[1,2,3,4,5].map((_,i) => star > i ? 
               <BsFillStarFill  
@@ -110,8 +113,8 @@ function SingleProduct() {
               )}
             </div>
             <div><span className='fw-bold'>STATUS: </span> used</div>
-            <p>{dashboards.data?.productDescription}</p>
-            <h4> ${dashboards.data?.productPrice} <del className='text-muted'>$700</del></h4>
+            <p>{products.data?.productDescription}</p>
+            <h4> ${products.data?.productPrice} <del className='text-muted'>$700</del></h4>
             <div>
             <button className='btn btn-primary'><FaShoppingCart className='cart' /> ADD TO CART</button>
             <button onClick={confirmDelete} className='btn' style={{background:"#E92266",marginLeft:"10px",color:"#fff"}}><FaHeart /> LOVE</button>
@@ -136,14 +139,14 @@ function SingleProduct() {
 {/* comment */}
 
 
-      {false && <div className='my-5'>
+      {true && <div className='my-5'>
               <div className='btns'>
                 <button className='btn-comments'>COMMENTS</button>
                 <button className='btn-relateds'>RELATED</button>
                 <button className='addtion-span'></button>
               </div>
               <div className="comments-body">
-                {dashboards.data?.comments?.map(e =>(
+                {products.data?.comments?.map(e =>(
                   <div key={e.id} className="comment">
                   <div className='comment-content'>
                     <img width={'50'} height={'50'} className='comment-img' src={`http://127.0.0.1:8000/images/${e.user_url}`} alt="" />

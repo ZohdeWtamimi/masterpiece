@@ -7,10 +7,13 @@ import Footer from '../components/footer/Footer';
 import { Link } from 'react-router-dom';
 import './shop.css'
 import { fetchItems } from '../store/DashboardSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProducts, insertProduct } from '../store/ProductSlice';
 
 
 function Shop() {
+  const {dashboards, loading} = useSelector((state) => state.dashboard)
+  // console.log(dashboards)
   // const [posts, setPosts] = useState([])
   // const [images, setImages] = useState([])
   // const [loading, setLoading] = useState(false)
@@ -25,10 +28,14 @@ function Shop() {
 
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(fetchItems('products')).then(res => {
-      console.log(res.payload)
+    dispatch(fetchProducts('')).then(res => {
+      // console.log(res.payload)
       setData(res.payload.data)
     });
+    // dispatch(fetchItems('products')).then(res => {
+    //   // console.log(res.payload)
+    //   setData(res.payload.data)
+    // });
   }, [dispatch,setData]);
   
   const handleBlur = (e)=>{
@@ -37,14 +44,28 @@ function Shop() {
     const newFilter = {...filterData}
     newFilter[name] = value
     setFilterData(newFilter)
+    const formData = new FormData()
+    formData.append('minPrice', newFilter.minPrice)
+    formData.append('maxPrice', newFilter.maxPrice)
         console.log(newFilter)
-        axios.post(`http://127.0.0.1:8000/api/products/filter`, newFilter)
-            .then(response =>{
-                console.log(response)
-            } ).catch(error =>{
-              console.log(error)
-          });
+    const send = {
+      section:'products/filter',
+      formData
+    }
+    console.log(send)
+    dispatch( insertProduct(send) ).unwrap()
+    .then((res) => {
+      console.log(res);
+    });
+        // axios.post(`http://127.0.0.1:8000/api/products/filter`, formData)
+        //     .then(response =>{
+        //         console.log(response)
+        //     } ).catch(error =>{
+        //       console.log(error)
+        //   });
   }
+
+
   // console.log(filterData)
   // const indexOfLastPagePost = currnetPage * postsPerPage;
   // const indexOfFirstpage = indexOfLastPagePost - postsPerPage;

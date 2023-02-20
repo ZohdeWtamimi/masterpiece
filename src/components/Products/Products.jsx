@@ -5,7 +5,8 @@ import { addToCart } from '../../store/CartSlice';
 import { fetchItems } from '../../store/DashboardSlice';
 
 function Products({ data}) {
-  // const {dashboards} = useSelector((state) => state.dashboard)
+  const {products} = useSelector((state) => state.product)
+  console.log(products)
   const {cartItems, amount} = useSelector((state) => state.cart)
   // const [data , setData] = useState([])
 
