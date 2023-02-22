@@ -66,14 +66,7 @@ function Shop() {
   }
 
 
-  // console.log(filterData)
-  // const indexOfLastPagePost = currnetPage * postsPerPage;
-  // const indexOfFirstpage = indexOfLastPagePost - postsPerPage;
-  // const currnetPosts = posts.slice(indexOfFirstpage, indexOfLastPagePost)
-  // const currnetImage = images.slice(indexOfFirstpage, indexOfLastPagePost)
-// console.log(images)
-// console.log(currnetImage)
-  // const paginate = (pageNumber)=> setCaurrenPage(pageNumber)
+
   return (
     <>
     <Header />
@@ -81,6 +74,7 @@ function Shop() {
     <div className='container pb-5 pt-3'>
       <div className="d-flex justify-content-between align-items-center">
       <h1 className='mb-3'>shop</h1>
+      <div>apply search</div>
       <nav>
           <ul className='path'>
               <li><Link className='deleteDeco' to="/">Home </Link><span>/</span></li>
@@ -90,81 +84,25 @@ function Shop() {
       </div>
       
       <div className="row ">
-        <div className="col-3 shadow text-light bg-light notRes">
-      <div className="accordion w-100" id="accordionExample">
-        {/* start accordion */}
-        <div className="accordion-item">
-                <h2 className="accordion-header" id="headingOne">
-                  <button className="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                    <strong>price</strong>
-                  </button>
-                </h2>
-                <div id="collapseOne" className="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                  <div className="accordion-body">
-                    <div className="d-flex justify-content-around">
-                      <div  >
-                        <label htmlFor="">MIN Price</label>
-                        <input style={{width:'100px', display:'block'}} onBlur={handleBlur}  type="number" name='minPrice' defaultValue={filterData.minPrice} />
-                      </div>
-                      <div >
-                        <label htmlFor="">MAX Price</label>
-                        <input style={{width:'100px',display:'block'}} onBlur={handleBlur} type="number" name='maxPrice' defaultValue={filterData.maxPrice} />
-                      </div>
-                    </div>
+        <div className="col-2 shadow  bg-light notRes">
+          <div className="price-filter">
+            <button>price</button>
+              <div className="d-flex justify-content-around">
+                  <div  >
+                    <label htmlFor="" >MIN Price</label>
+                    <input style={{width:'80px', display:'block'}} onBlur={handleBlur}  type="number" name='minPrice' defaultValue={filterData.minPrice} />
                   </div>
-                </div>
-        </div>
-        {/* end accordion */}
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="headingTwo">
-            <button className="accordion-button collapsed " type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                Condition
-            </button>
-          </h2>
-          <div id="collapseTwo" className="accordion-collapse collapse show" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
-            <div className="accordion-body">
-              <strong>This is the second item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
+                  <div >
+                    <label >MAX Price</label>
+                    <input style={{width:'80px',display:'block'}} onBlur={handleBlur} type="number" name='maxPrice' defaultValue={filterData.maxPrice} />
+                  </div>
+              </div>
           </div>
         </div>
-        <div className="accordion-item">
-          <h2 className="accordion-header" id="headingThree">
-            <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-              Accordion Item #3
-            </button>
-          </h2>
-          <div id="collapseThree" className="accordion-collapse collapse show" aria-labelledby="headingThree" data-bs-parent="#accordionExample">
-            <div className="accordion-body">
-              <strong>This is the third item's accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It's also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
-            </div>
-          </div>
-        </div>
-      </div>
-          {/* <div>hello</div>
-          <div>hello</div>
-          <div>hello</div>
-          <div>hello</div>
-          <div>hello</div>
-          <div>hello</div>
-          <div>hello</div>
-          <div>hello</div>
-          <div>hello</div>
-          <div>hello</div> */}
-        </div>
-        <div className="col-lg-9 col-md-12 col-sm-12 ">
+        <div className="col-lg-10 col-md-12 col-sm-12 ">
         <div className="d-flex justify-content-between align-items-center mini">
-          {/* <Pagination 
-          // className="pagination"
-          postsPerPage={postsPerPage} 
-          totalPosts={posts.length} 
-          paginate={paginate} /> */}
-          {/* <p className=''>Showing {indexOfFirstpage ? indexOfFirstpage : 1} to {indexOfLastPagePost} of {posts.length} | page: {currnetPage} </p> */}
         </div>
         <Products data={data}  />
-        {/* <Pagination 
-        postsPerPage={postsPerPage} 
-        totalPosts={posts.length} 
-        paginate={paginate} /> */}
         </div>
       </div>
     </div>

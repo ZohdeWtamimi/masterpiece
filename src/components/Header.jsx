@@ -48,27 +48,31 @@ function Header() {
             <Link className='a' to="/cart">cart</Link>
         </li>
     </ul >
-        <div className='me-3'>
+        <div className='me-3 ' style={{width: '250px'}}>
             <button onClick={logout} style={{marginRight:'40px',padding:"5px"}}>logout</button>
             < BsFillPersonFill className='icon' />
         <span className='m-4'>|</span>
+        <Link className='' style={{display:"inline"}} to="/cart">
             <span className='rel'>
             <FaShoppingCart className='cart' style={{background: "transparent"}} />
             <span className='cout-item'>{amount}</span>
             </span>
+        </Link>
         </div>
         <div onClick={()=> setOpenNav(!openNav)} className="openNav">
         <FaBars />
         </div>
   </nav>
-     <div style={{transform: openNav ? "translateX(300px)": 'translateX(0px)'}} className="responsive">
+     <div style={{transform: openNav ? "translateX(600px)": 'translateX(0px)'}} className="responsive">
         <div className='inRes'>
-            < BsFillPersonFill className='icon' />
+            < BsFillPersonFill className='icon' style={{fontSize:"2rem"}} />
             <span className='m-4'>|</span>
-            <span className='rel'>
-            <FaShoppingCart className='cart' />
-            <span className='cout-item'>0</span>
-            </span>
+            <Link className='' style={{display:"inline", color:'#fff'}} to="/cart">
+                <span className='rel'>
+                <FaShoppingCart className='cart' style={{fontSize:"2rem"}} />
+                <span className='cout-item'>{amount}</span>
+                </span>
+            </Link>
         </div>
         <ul className='resUl'>
                 <Link className='resLink' to="/register">
@@ -103,3 +107,80 @@ function Header() {
 }
 
 export default Header
+
+{/* <>
+<nav className="nav">
+<Link to="/" className="site-title">
+  Site Name
+</Link>
+<ul className='notResUl'>
+    <li>
+        <Link className='a' to="/shop">shop</Link>
+    </li>
+    <li>
+        <Link className='a' to="/about">About</Link>
+    </li>
+    <li>
+        <Link className='a' to="/dashboard">dashboard</Link>
+    </li>
+    <li>
+        <Link className='a' to="/register">Register</Link>
+    </li>
+    <li>
+        <Link className='a' to="/login">Login</Link>
+    </li>
+    <li>
+        <Link className='a' to="/cart">cart</Link>
+    </li>
+</ul >
+    <div className='me-3'>
+        <button onClick={logout} style={{marginRight:'40px',padding:"5px"}}>logout</button>
+        < BsFillPersonFill className='icon' />
+    <span className='m-4'>|</span>
+        <span className='rel'>
+        <FaShoppingCart className='cart' style={{background: "transparent"}} />
+        <span className='cout-item'>{amount}</span>
+        </span>
+    </div>
+    <div onClick={()=> setOpenNav(!openNav)} className="openNav">
+    <FaBars />
+    </div>
+</nav>
+ <div style={{transform: openNav ? "translateX(300px)": 'translateX(0px)'}} className="responsive">
+    <div className='inRes'>
+        < BsFillPersonFill className='icon' />
+        <span className='m-4'>|</span>
+        <span className='rel'>
+        <FaShoppingCart className='cart' />
+        <span className='cout-item'>0</span>
+        </span>
+    </div>
+    <ul className='resUl'>
+            <Link className='resLink' to="/register">
+                <li className='resLi'>
+                        Register
+                </li>
+            </Link>
+            <Link className='resLink' to="/login">
+                <li className='resLi'>
+                        Login in
+                </li>
+            </Link>
+        <Link className='resLink' to="/shop">
+            <li className='resLi'>
+                    shop
+            </li>
+        </Link>
+            <Link className='resLink' to="/about">
+                <li className='resLi'>
+                        About
+                </li>
+            </Link>
+            <Link className='resLink' to="/dashboard">
+                <li className='resLi'>
+                        dashboard
+                </li>
+            </Link>
+    </ul>
+</div>
+</> */}

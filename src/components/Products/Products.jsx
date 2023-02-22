@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { FaEye, FaHeart } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { addToCart } from '../../store/CartSlice';
@@ -22,12 +23,18 @@ function Products({ data}) {
   return (
     <div className="row ">
             {data && data.map((e, i) =>(
-            <div key={i} className="col-lg-3 col-md-6 p-2 ">
-                <div className="container p-2 shadow bg-light">
+            <div key={i} className="col-lg-3 col-md-6 col-sm-8 p-2" >
+                <div className="container  shadow bg-light"  style={{borderRadius: "3px",padding: '0'}}>
                 <img style={{width:"100%", height: "150px"}} src={`http://127.0.0.1:8000/images/${e.url}`} alt="" />
-                <p>{e.productName.substring(0,12)}...<Link to={`/shop/${e.id}`}>see more</Link> </p>
-                <p>price: ${e.productPrice} <del>$700</del></p>
-                <button className='btn btn-primary' onClick={()=> dispatch(addToCart(e))}>add to cart</button>
+                <div className='p-3 pb-3'>
+                  <h5>{e.productName.substring(0,12)} </h5>
+                  <p>price: ${e.productPrice} <del>$700</del></p>
+                  {/* <div className='d-flex justify-content-between'> */}
+                    <button className='btn btn-primary me-4' onClick={()=> dispatch(addToCart(e))}>add to cart</button>
+                    <Link className='btn btn-warning me-2' style={{color:"#fff"}} to={`/shop/${e.id}`}><FaEye /></Link>
+                    <button className='btn  me-2' style={{backgroundColor: '#E92266', color:"#fff"}} onClick={()=> dispatch(addToCart(e))}><FaHeart /></button>
+                  {/* </div> */}
+                </div>
                 </div>
               </div>
             ))}
