@@ -77,7 +77,7 @@ function Products({isOpen}) {
     formData.append('image', newItem.image)
     formData.append('category_id', categories.find(e => e.CategoryName === newItem.category_id).id)
     formData.append('productName', newItem.productName)
-    formData.append('productPrice', newItem.productPrice)
+    formData.append('productPrice', newItem.productDiscount ? newItem.productPrice - ((newItem.productDiscount/100) * newItem.productPrice) :  newItem.productPrice)  
     formData.append('productDescription', newItem.productDescription)
     formData.append('productDiscount', newItem.productDiscount)
     console.log(formData.get('image'))
@@ -93,6 +93,15 @@ function Products({isOpen}) {
     console.log(send)
     dispatch( insertItem(send) ).unwrap()
     .then((res) => {
+      setNewItem({
+        productName: '',
+        productPrice: '',
+        productDescription: '',
+        productDiscount: '',
+        category_id:'cornex2',
+        image: '',
+      })
+      setShowForm(false)
       console.log(res);
     });
     // const access_token = localStorage.getItem('token')
@@ -179,14 +188,13 @@ function Products({isOpen}) {
                <Card.Title className='text-center'>{e.productName}</Card.Title>
                <div className="d-flex justify-content-between">
                <div className="d-flex">
-                 <p style={{ fontWeight: "700"}}>$342</p>
-                 <del className="text-muted" style={{marginLeft: "13px", fontWeight: "500"}}>$245</del>
+                 <p style={{ fontWeight: "700"}}>${e.productPrice}</p>
+                 <del className="text-muted" style={{marginLeft: "13px", fontWeight: "500"}}>$ {  e.productPrice + ((e.productDiscount/100) * e.productPrice) }</del>
                </div>
                <p className='bg-warning px-2 py-0 fw-bold text-light'>sale</p>
                </div>
                <Card.Text>
-                 Some quick example text to build on the card title and make up the
-                 bulk of the card's content.
+                 {e.productDescription}
                </Card.Text>
                <div className="d-flex justify-content-between align-items-center">
                <Button variant="danger" onClick={ev => onDelete(e)}>remove</Button>

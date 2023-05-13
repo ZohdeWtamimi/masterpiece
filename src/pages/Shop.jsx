@@ -39,6 +39,7 @@ function Shop() {
   }, [dispatch,setData]);
   
   const handleBlur = (e)=>{
+    console.log('hello')
     const {name,value}=e.target;
     console.log(value)
     const newFilter = {...filterData}
@@ -74,7 +75,7 @@ function Shop() {
     <div className='container pb-5 pt-3'>
       <div className="d-flex justify-content-between align-items-center">
       <h1 className='mb-3'>shop</h1>
-      <div>apply search</div>
+      <div></div>
       <nav>
           <ul className='path'>
               <li><Link className='deleteDeco' to="/">Home </Link><span>/</span></li>

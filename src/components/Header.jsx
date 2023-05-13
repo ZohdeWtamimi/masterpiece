@@ -26,29 +26,31 @@ function Header() {
     <>
     <nav className="nav">
     <Link to="/" className="site-title">
-      Site Name
+      Car Parts
     </Link>
     <ul className='notResUl'>
         <li>
+            <Link className='a' to="/home">Home</Link>
+        </li>
+        <li>
             <Link className='a' to="/shop">shop</Link>
         </li>
+        {localStorage.getItem('user')?.role== 'admin' && 
         <li>
-            <Link className='a' to="/about">About</Link>
-        </li>
-        <li>
-            <Link className='a' to="/dashboard">dashboard</Link>
-        </li>
+        <Link className='a' to="/dashboard">dashboard</Link>
+        </li>}
         <li>
             <Link className='a' to="/register">Register</Link>
         </li>
+        {!localStorage.getItem('user') &&
         <li>
-            <Link className='a' to="/login">Login</Link>
-        </li>
-        <li>
+        <Link className='a' to="/login">Login</Link>
+        </li>}
+        {localStorage.getItem('user') && <li>
             <Link className='a' to="/cart">cart</Link>
-        </li>
+        </li>}
     </ul >
-        <div className='me-3 ' style={{width: '250px'}}>
+        {localStorage.getItem('user') && <div className='me-3 ' style={{width: '250px'}}>
             <button onClick={logout} style={{marginRight:'40px',padding:"5px"}}>logout</button>
             < BsFillPersonFill className='icon' />
         <span className='m-4'>|</span>
@@ -58,7 +60,7 @@ function Header() {
             <span className='cout-item'>{amount}</span>
             </span>
         </Link>
-        </div>
+        </div>}
         <div onClick={()=> setOpenNav(!openNav)} className="openNav">
         <FaBars />
         </div>
@@ -90,11 +92,11 @@ function Header() {
                         shop
                 </li>
             </Link>
-                <Link className='resLink' to="/about">
+                {/* <Link className='resLink' to="/about">
                     <li className='resLi'>
                             About
                     </li>
-                </Link>
+                </Link> */}
                 <Link className='resLink' to="/dashboard">
                     <li className='resLi'>
                             dashboard

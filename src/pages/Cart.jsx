@@ -9,6 +9,7 @@ import './cart.css'
 function Cart() {
     const dispatch = useDispatch()
     const {cartItems, amount, total} = useSelector((state) => state.cart)
+    console.log(total)
 
     if(amount < 1){
         return (
@@ -53,7 +54,7 @@ function Cart() {
                         <div className="d-flex flex-row align-items-center">
                             <span className="d-block me-5">{e.quantity}</span>
                             <span className="d-block m-3 font-weight-bold">${e.productPrice}</span>
-                            <FaTrashAlt onClick={()=> dispatch(removeItem(e.id))} />
+                            <FaTrashAlt onClick={()=> dispatch(removeItem(e))} />
                         </div>
                     </div>
                     ))}

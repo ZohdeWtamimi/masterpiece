@@ -54,9 +54,9 @@ function EditProduct() {
         e.preventDefault();
         const formData = new FormData()
         formData.append('image', newItem.image)
-        formData.append('category_id', categories.find(e => e.CategoryName === newItem.category_id).id)
+        formData.append('category_id', categories.find(e => e.CategoryName === newItem.category_id)?.id || 1)
         formData.append('productName', newItem.productName)
-        formData.append('productPrice', newItem.productPrice)
+        formData.append('productPrice', newItem.productDiscount ? newItem.productPrice - ((newItem.productDiscount/100) * newItem.productPrice) :  newItem.productPrice)
         formData.append('productDescription', newItem.productDescription)
         formData.append('productDiscount', newItem.productDiscount)
         console.log(formData.get('image'))

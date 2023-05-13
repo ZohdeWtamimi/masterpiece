@@ -41,9 +41,9 @@ function Slider() {
     
         <div style={parentDiv}>
             <div  className='content current'>
-                <h3>new offer</h3>
-                <p>Lorem ipsum dolor sit  elit eum provident magni expedita, sint necessitatibus error sunt vit</p>
-                <button>shop now</button>
+                <h3>New Offer</h3>
+                <p>Stay tuned for the largest collections and the latest prices</p>
+                <a href='/shop' class="btn btn-dark w-25">shop now</a>
             </div>
             <FaArrowLeft  className='arrowLeft' onClick={previousImg} />
             <FaArrowRight className='arrowRight' onClick={nextImg}  />
